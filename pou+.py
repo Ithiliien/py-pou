@@ -62,13 +62,13 @@ def pet(state):
 
 def _check_status(state):
     # Limitamos los valores entre 0 y 100
-    self.hunger = max(0, min(self.hunger, 100))
-    self.energy = max(0, min(self.energy, 100))
-    self.happiness = max(0, min(self.happiness, 100))
-    self.health = max(0, min(self.health, 100))
-    if self.health <= 0:
-      self.alive = False
-      print(f"{self.name} has passed away.")
+  state.hunger = max(0, min(state.hunger, 100))
+  state.energy = max(0, min(state.energy, 100))
+  state.happiness = max(0, min(state.happiness, 100))
+  state.health = max(0, min(state.health, 100))
+  if state.health <= 0:
+      state.alive = False
+      print(f"{state.name} has passed away.")
       exit()  # Salir del juego si la mascota muere
 
  
