@@ -24,6 +24,10 @@ class Pou:
     print("Energy:", self.energy)
     print("Happiness:", self.happiness)
     print("Health:", self.health)
+    if self.health <= 0:
+      self.alive = False
+      print(f"{self.name} has passed away.")
+      exit()  # Salir del juego si la mascota muere
 
   def __str__(self):
     return f"Name: {self.name}\nAge: {self.age}\nHunger: {self.hunger}\nEnergy: {self.energy}\nHappiness: {self.happiness}\nHealth: {self.health}"
@@ -60,10 +64,7 @@ class Pou:
     self.happiness += 1
     self._check_status()
     
-    if self.health <= 0:
-      self.alive = False
-      print(f"{self.name} has passed away.")
-      exit()  # Salir del juego si la mascota muere
+    
 
 toto = Pou("Toto")
 

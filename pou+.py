@@ -6,83 +6,87 @@ def minmax(value):
     return 100
   else:
     return value
-class Pou:
-  # inciciar
-  def __init__(self, name):
-    self.name = name
-    self.age = 0
-    self.hunger = random.randint(0,50)
-    self.energy = random.randint(50,100)
-    self.happiness = random.randint(0,10)
-    self.health = 100  # Inicializamos la salud en 100
-    self.alive = True
 
-  def status(self):
-    print("Name:", self.name)
-    print("Age:", self.age)
-    print("Hunger:", self.hunger)
-    print("Energy:", self.energy)
-    print("Happiness:", self.happiness)
-    print("Health:", self.health)
-
-  def __str__(self):
-    return f"Name: {self.name}\nAge: {self.age}\nHunger: {self.hunger}\nEnergy: {self.energy}\nHappiness: {self.happiness}\nHealth: {self.health}"
-
+  state ={
+     "name": "Toto",
+     "age": 0,
+     "hunger": random.randint(0,50),
+     "energy": random.randint(50,100),
+     "happiness": 100,
+     "health": 100,
+     "alive": True
+  }
+  def status():
+     print("Name:" ,  state["name"])
+     print("Age:" ,  state["age"])
+     print("Hunger:" ,  state["hunger"])
+     print("Energy:" ,  state["energy"])
+     print("Happiness:" ,  state["happiness"])
+     print("Health" ,  state["health"])
+  
   def play(state):
-    new_state = dict(state)
-    new_state["hunger"] = minmax(state.hunger+random.randint(5,10))
-    new_state["energy"] = minmax(state.energy-random.randint(10,20))
-    new_state["happiness"] = minmax(state.happiness+random.randint(5,10))
-    new_state["health"] = minmax(state.health+random.randint(0,5))
+     new_state= dict(state)
+     new_state["hunger"]= minmax(state["hunger"]+ random.randint(5,10))
+     new_state["energy"]= minmax(state["energy"]- random.randint(10,20))
+     new_state["happiness"]= minmax(state["happiness"]+ random.randint(5,10))
+     new_state["health"]= minmax(state["health"]+ random.randint(0,5))
+     return new_state
+  
 
-  def eat(self):
-    self.hunger = minmax(self.hunger+random.randint(5,10))
-    self.energy = minmax(self.energy-random.randint(10,20))
-    self.happiness =minmax(self.happiness+random.randint(5,10))
-    self.health = minmax(self.health+random.randint(0,5))
-    self._check_status()
+  def eat(state):
+     new_state= dict(state)
+     new_state["hunger"]= minmax(state["hunger"]- random.randint(5,10))
+     new_state["energy"]= minmax(state["energy"]+ random.randint(10,20))
+     new_state["happiness"]= minmax(state["happiness"]+ random.randint(5,10))
+     new_state["health"]= minmax(state["health"]+ random.randint(0,5))
+     return new_state
+  
+  def sleep(state):
+     new_state= dict(state)
+     new_state["hunger"]= minmax(state["hunger"]+ random.randint(5,10))
+     new_state["energy"]= minmax(state["energy"]+ random.randint(10,20))
+     new_state["happiness"]= minmax(state["happiness"]+ random.randint(5,10))
+     new_state["health"]= minmax(state["health"]+ random.randint(0,5))
+     return new_state
+  
 
-  def sleep(self):
-    self.energy += 3
-    self.health += 2
-    self.hunger -= minmax(self.hunger+random.randint(5,10))
-    self._check_status()
+  def pet(state):
+     new_state= dict(state)
+     new_state["hunger"]= minmax(state["hunger"]+ random.randint(5,10))
+     new_state["energy"]= minmax(state["energy"]- random.randint(10,20))
+     new_state["happiness"]= minmax(state["happiness"]+ random.randint(5,10))
+     new_state["health"]= minmax(state["health"]+ random.randint(0,5))
+     return new_state
+  
 
-  def _check_status(self):
+  def _check_status(state):
     # Limitamos los valores entre 0 y 100
     self.hunger = max(0, min(self.hunger, 100))
     self.energy = max(0, min(self.energy, 100))
     self.happiness = max(0, min(self.happiness, 100))
     self.health = max(0, min(self.health, 100))
-  
-  def pet(self):
-    self.health += 3
-    self.happiness += 1
-    self._check_status()
-    
     if self.health <= 0:
       self.alive = False
       print(f"{self.name} has passed away.")
       exit()  # Salir del juego si la mascota muere
 
-  toto = Pou("Toto")
-def menu(state):
-    while state.alive:
-        state.status()
+
+    while True:
+        status()
         option = input("What do you want to do? (play, eat, sleep, pet, exit): ")
 
         if option == "play":
-            state.play()
+            state = play(state)
         elif option == "eat":
-            state.eat()
+            state= eat(state)
         elif option == "sleep":
-            state.sleep()
+            state = sleep(state)
         elif option == "pet":
-            state.pet()
+            state = pet(state)
         elif option == "exit":
             break
         else:
             print("Invalid option. Please choose again.")
 
-menu(state)
+
 
