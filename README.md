@@ -10,6 +10,9 @@
 - more methods, while loop (4pts)
 - better interface (1pts)
 
+- Pou with Object Oriented programming
+- Pou with Functional programming
+
 ```python
 import random
 
